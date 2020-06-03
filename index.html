@@ -35,7 +35,7 @@
           <span class="input-group-text" id="addon-wrapping">Enter Console Name</span>
         </div>
         <input id="movieName" type="text" class="form-control" placeholder="Console Name" aria-label="Movie Name" aria-describedby="addon-wrapping">
-        <button class="btn btn-primary" id="saveBtn" onclick=>Search Console</button>
+        <button class="btn btn-primary" id="saveBtn" onclick="searchConsole('PS4')">Search Console</button>
       </div>
 
     <!-- End of Navbar -->
@@ -49,8 +49,8 @@
         </div>
         <!-- End of Leftside Ad -->
         <!-- Homepage slideshow -->
-        <div class="col-sm-8">
-          <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+        <div id="display" class="col-sm-8">
+          <div id="carousel" class="carousel slide" data-ride="carousel">
               <div class="carousel-inner">
                 <div class="carousel-item active">
                   <img src="https://i2-prod.mirror.co.uk/incoming/article3986406.ece/ALTERNATES/s615/Kids-playing-a-video-game.jpg" class="d-block h-100 w-100" alt="Kids playing video games">
@@ -81,7 +81,7 @@
           <!-- Product display -->
           
       </div>
-      <div class="row">
+      <div id="productList" class="row">
             <!-- Product#1 -->
             <div class="card">
               <img
