@@ -1,2 +1,2 @@
-# E-commerce-shopping
-This is an application of online shopping
+# Practice-for-Project
+Just for Practice
