@@ -1,0 +1,23 @@
+.navbar {
+    background-color: rgb(58, 56, 56);
+    height: 75px;
+   
+    padding: 12px;
+    text-decoration: none;
+    color: white;
+}
+
+a {
+    color: ivory;
+   font-size: x-large;
+    font-family: 'Bangers', cursive;
+   
+}
+.button {
+
+    background-color: lightskyblue;
+}
+
+.fa {
+    
+}
