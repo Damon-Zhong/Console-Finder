@@ -1,7 +1,6 @@
 .navbar {
-    background-color: rgb(58, 56, 56);
+    background-color:#FFC90D;
     height: 75px;
-   
     padding: 12px;
     text-decoration: none;
     color: white;
@@ -11,13 +10,32 @@ a {
     color: ivory;
    font-size: x-large;
     font-family: 'Bangers', cursive;
-   
 }
 .button {
-
     background-color: lightskyblue;
 }
 
-.fa {
-    
+#shoppingcartBtn{
+    font-size:24px; 
+    background-color: lightskyblue; 
+    border: 15px; 
+    padding: 10px; 
+    color: white; 
+    font-family: 'Bangers', cursive;
+}
+/* 
+.container{
+    margin: 0;
+} */
+
+img{
+    width: 100%;
+}
+.carousel{
+    margin-top: 4%;
+}
+.Ad {
+    margin: 2% 0 5%;
+    position: sticky;
+    /* height: 50vh; */
 }
