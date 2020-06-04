@@ -39,3 +39,24 @@ img{
     position: sticky;
     /* height: 50vh; */
 }
+
+.hide{
+    display: none;
+}
+
+.hideProduct{
+    display: none;
+    
+}
+
+.hidePS4{
+    display: none;
+}
+
+.hideSwitch{
+    display: none;
+}
+
+.hideXbox{
+    display: none;
+}
