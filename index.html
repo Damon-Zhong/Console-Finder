@@ -18,14 +18,18 @@
   <body>
 
     <!-- Navbar -->
-    <div class="navbar">
-      <a class="active" href="#"><i class="fa fa-fw fa-home"></i> Home</a> 
+    <nav class="navbar navbar-light">
+      <a class="navbar-brand"><i class="fa fa-fw fa-home"></i> Home</a>
       <!-- <img id="logo" src="" /> -->
-      <a href="#"><i class="fa fa-fw fa-search"></i> Search</a> 
+      <form class="form-inline">
+        <input id="searchBox" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit" onclick="searchConsole( getConsoleName() )">Search</button>
+      </form>
+    </nav>
+      <!-- <a href="#"><i class="fa fa-fw fa-search"></i> Search</a>  -->
       <!-- <a href="#"><i class="fa fa-fw fa-envelope"></i> Contact</a> 
       <a href="#"><i class="fa fa-fw fa-user"></i> Login</a> -->
-      <button id="shoppingcartBtn">Shopping Cart <i class="fa fa-shopping-cart"></i></button>
-  </div>
+      <!-- <button id="shoppingcartBtn">Shopping Cart <i class="fa fa-shopping-cart"></i></button> -->
 
     <div class="container">
       <h2>Compare Prices</h2>
@@ -34,8 +38,8 @@
         <div class="input-group-prepend">
           <span class="input-group-text" id="addon-wrapping">Enter Console Name</span>
         </div>
-        <input id="movieName" type="text" class="form-control" placeholder="Console Name" aria-label="Movie Name" aria-describedby="addon-wrapping">
-        <button class="btn btn-primary" id="saveBtn" onclick="searchConsole('PS4')">Search Console</button>
+        <input type="text" class="form-control" placeholder="Console Name" style="width: 10%;">
+        <button class="btn btn-primary" id="saveBtn" onclick="searchConsole( getConsoleName() )">Search Console</button>
       </div>
 
     <!-- End of Navbar -->
