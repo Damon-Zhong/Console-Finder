@@ -1,101 +1,136 @@
 const searchEl = document.querySelector("#searchBox")
 const carouselEl = document.querySelector("#carousel")
 const displayEl = document.querySelector("#display")
-const productList = [
-    {'Name':'PS4', 'pic':'https://i5.walmartimages.ca/images/Large/766/752/6000197766752.jpg','Description':'sometext'},
-    {'Name':'PS3', 'pic':'https://i5.walmartimages.ca/images/Large/766/752/6000197766752.jpg','Description':'sometext'},
-    {'Name':'PS2', 'pic':'https://i5.walmartimages.ca/images/Large/766/752/6000197766752.jpg','Description':'sometext'},]
-const AmazonData = {'Name':'Amazon-PS4', 'pic':'https://i5.walmartimages.ca/images/Large/766/752/6000197766752.jpg','Description':'sometext'};
-const eBayData = {'Name':'eBay-PS4', 'pic':'https://i5.walmartimages.ca/images/Large/766/752/6000197766752.jpg','Description':'sometext'};
-//Retrieve console name from input 
-function getConsoleName(){
-    return document.querySelector("#searchBox").value;
-}
+
+// const productList = [
+//     {'Name':'PS4', 'pic':'https://i5.walmartimages.ca/images/Large/766/752/6000197766752.jpg','Description':'sometext'},
+//     {'Name':'PS3', 'pic':'https://i5.walmartimages.ca/images/Large/766/752/6000197766752.jpg','Description':'sometext'},
+//     {'Name':'PS2', 'pic':'https://i5.walmartimages.ca/images/Large/766/752/6000197766752.jpg','Description':'sometext'},]
+// const AmazonData = {'Name':'Amazon-PS4', 'pic':'https://i5.walmartimages.ca/images/Large/766/752/6000197766752.jpg','Description':'sometext'};
+// const GoogleData = {'Name':'eBay-PS4', 'pic':'https://i5.walmartimages.ca/images/Large/766/752/6000197766752.jpg','Description':'sometext'};
+
 //Display selected product
-function searchConsole( consoleName ){
+async function searchConsole(){
     event.preventDefault();
+    let consoleName = document.querySelector("#searchBox").value;//Retrieve console name from input 
     //Hide the slideshow
     carouselEl.style.display = 'none';
-    //Look for console name is product list and display 
-    productList.forEach( 
-        function( item, index ){
-            if( item.Name.includes( consoleName )){
-                displayEl.innerHTML = `
-                <div class="card">
-                    <img src="${item.pic}" class="card-img-top"/>
-                    <div class="card-body">
-                        <h5 class="card-title">${item.Name}</h5>
-                        <p class="card-text"> ${item.Description} </p>
-                        <button class="btn btn-primary" onclick="comparePrices('${item.Name}')">Compare</button>
-                    </div>
-                </div>`;
-            } 
-        }
-    )
-}
-
-async function fetchAmazonData( consoleName ){
-    let AmazonAPI = `https://amazon-price1.p.rapidapi.com/search?keywords=${consoleName}&marketplace=CA`
-
-    const AmazonData = await fetch(AmazonAPI, {"method": "GET","headers": {
-		"x-rapidapi-host": "amazon-price1.p.rapidapi.com",
-		"x-rapidapi-key": ""
-	    }
-     }).then((result)=>result.json()).catch(err => {console.log(err);});
-     return AmazonData;
-}
-
-async function fetchGoogleData( consoleName ){
-    let googleAPI = `https://google-shopping.p.rapidapi.com/search?language=EN&keywords=${consoleName}&country=CA`
-
-    const googleData = await fetch(googleAPI, {"method": "GET","headers": {
-		"x-rapidapi-host": "google-shopping.p.rapidapi.com",
-		"x-rapidapi-key": ""
-	    }
-     }).then((result)=>result.json()).catch(err => {console.log(err);});
-     return googleData;
-}
-
-function comparePrices( consoleName ){
-    //Clear display window
-    displayEl.innerHTML = '';
-    //Display Amazon and eBay price info
-    if( eBayData.Name.includes( consoleName ) || AmazonData.Name.includes( consoleName )){
-        displayAmazonPrice( consoleName );
-        displayeBayData( consoleName );
-    }else{
-        displayEl.innerHTML = `Sorry! We couldn't find your console.`;
+    //Fetch data
+    try{
+    const AmazonData = await fetchAmazonData( consoleName );
+    const GoogleData = await fetchGoogleData( consoleName );
+    //Display product info
+    displayProduct( AmazonData, GoogleData );
+    } catch( e ){
+        console.log( `Fetching failed`, e )
     }
 }
 
-function displayAmazonPrice( consoleName ){
-    if ( AmazonData.Name.includes( consoleName ) ){
-        console.log(`Amazon data`)
-        displayEl.innerHTML += `<div class="card">
-        <img src="${AmazonData.pic}" class="card-img-top"/>
+async function fetchAmazonData( consoleName ){
+    console.log(`Run [fetchAmazonData]`)
+    let AmazonAPI = `https://amazon-price1.p.rapidapi.com/search?keywords=${consoleName}&marketplace=CA`
+
+     return await fetch(AmazonAPI, {"method": "GET","headers": {
+		"x-rapidapi-host": "amazon-price1.p.rapidapi.com",
+		"x-rapidapi-key": "249c806d92mshd4f2e071540342ap173426jsn98f88f367b1a"
+	    }
+     }).then((result)=>result.json()).catch(err => {console.log(err, `Fetch from Amazon failed`);});;
+}
+
+async function fetchGoogleData( consoleName ){
+    console.log(`Run [fetchGoogleData]`)
+
+    let googleAPI = `https://google-shopping.p.rapidapi.com/search?language=EN&keywords=${consoleName}&country=CA`
+
+   return await fetch(googleAPI, {"method": "GET","headers": {
+		"x-rapidapi-host": "google-shopping.p.rapidapi.com",
+		"x-rapidapi-key": "249c806d92mshd4f2e071540342ap173426jsn98f88f367b1a"
+	    }
+     }).then((result)=>result.json()).catch(err => {console.log(err, `Fetch from Google failed`);});
+}
+
+function displayProduct( Data1, Data2){
+    console.log(`Run [displayProduct]`)
+
+    //Clear display window
+    displayEl.innerHTML = '';
+    //Display Amazon and Google Shopping price info
+    displayEl.innerHTML = `
+    <div class="card">
+        <img src="${Data1[0].imageUrl}" class="card-img-top"/>
         <div class="card-body">
-            <h5 class="card-title">${AmazonData.Name}</h5>
-            <p class="card-text"> ${AmazonData.Description} </p>
-            <button class="btn btn-primary" onclick="convertPrices()">Show price in my currency</button>
+            <h5 class="card-title">${Data1[0].title} from Amazon</h5>
+            <p class="card-text"> ${Data1[0].Description} </p>
+            <p>Amazon Price: $ ${Data1[0].price}</p>
+        </div>
+    </div>
+    <div class="card">
+        <img src="${Data1[0].imageUrl}" class="card-img-top"/>
+        <div class="card-body">
+            <h5 class="card-title">${Data2[0].title} from Google Shopping</h5>
+            <p>Google Shopping Price: ${Data2[0].currency}${Data2[0].price}</p>
         </div>
     </div>`;
-    }else return;
+    console.log(`Amazon Price: $ ${Data1[0].price}`)
+    console.log(`Google Price: ${Data2[0].currency}${Data2[0].price}`)
 }
 
-function displayeBayData( consoleName ){
-    if( eBayData.Name.includes( consoleName ) ){
-        console.log(`eBay data`)
-        displayEl.innerHTML += `<div class="card">
-        <img src="${eBayData.pic}" class="card-img-top"/>
-        <div class="card-body">
-            <h5 class="card-title">${eBayData.Name}</h5>
-            <p class="card-text"> ${eBayData.Description} </p>
-            <button class="btn btn-primary" onclick="convertPrices()">Show price in my currency</button>
-        </div>
-    </div>`;
-    }else return;
-}
+//Sample response from Google Shopping API-Data 2
+// 20 items
+// 0:{4 items
+// "title":"PlayStation 4 1TB Console"
+// "currency":"CA$"
+// "price":379.99
+// "google_shopping_id":"16617437904741053003"
+// }
+// 1:{4 items
+// "title":"PlayStation 4 Pro 1TB Console"
+// "currency":"CA$"
+// "price":499.99
+// "google_shopping_id":NULL
+// }
+// 2:{4 items
+// "title":"PlayStation 4 Slim Console - Fortnite Neo Versa Bundle - 1TB [PlayStation 4 System]"
+// "currency":"CA$"
+// "price":534.99
+// "google_shopping_id":"8346607372788258562"
+// }
 
-async function fetchData (){
-
-}
+//Sample response from Amazon Price API
+// 10 items
+// 0:{10 items
+//     "ASIN":"B074LRF639"
+//     "title":"PlayStation 4 - 1TB Slim - Console Edition"
+//     "price":"CDN$ 379.99"
+//     "listPrice":""
+//     "imageUrl":"https://m.media-amazon.com/images/I/31YXP3Vru-L._SL160_.jpg"
+//     "detailPageURL":"https://www.amazon.ca/dp/B074LRF639"
+//     "rating":"4.6"
+//     "totalReviews":"1346"
+//     "subtitle":"Playstation (Aug 8, 2017)"
+//     "isPrimeEligible":"1"
+//     }
+//     1:{10 items
+//     "ASIN":"B01LR207T8"
+//     "title":"PlayStation 4 Pro - 1TB - Console Edition"
+//     "price":"CDN$ 549.97"
+//     "listPrice":""
+//     "imageUrl":"https://m.media-amazon.com/images/I/319DGQem-qL._SL160_.jpg"
+//     "detailPageURL":"https://www.amazon.ca/dp/B01LR207T8"
+//     "rating":"4.5"
+//     "totalReviews":"398"
+//     "subtitle":"Playstation (Nov 10, 2016)"
+//     "isPrimeEligible":"0"
+//     }
+//     2:{10 items
+//     "ASIN":"B07YLZTK1S"
+//     "title":"Only on PlayStation PS4™ Bundle"
+//     "price":"CDN$ 559.99"
+//     "listPrice":""
+//     "imageUrl":"https://m.media-amazon.com/images/I/412Os29dO1L._SL160_.jpg"
+//     "detailPageURL":"https://www.amazon.ca/dp/B07YLZTK1S"
+//     "rating":"4.6"
+//     "totalReviews":"577"
+//     "subtitle":"Sony (Nov 27, 2019)"
+//     "isPrimeEligible":"1"
+//     }
