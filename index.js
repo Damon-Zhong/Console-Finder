@@ -1,18 +1,15 @@
 const searchEl = document.querySelector("#searchBox")
 const carouselEl = document.querySelector("#carousel")
 const displayEl = document.querySelector("#display")
+const displayPricesEl = document.querySelector("#displayPrices")
 
-// const productList = [
-//     {'Name':'PS4', 'pic':'https://i5.walmartimages.ca/images/Large/766/752/6000197766752.jpg','Description':'sometext'},
-//     {'Name':'PS3', 'pic':'https://i5.walmartimages.ca/images/Large/766/752/6000197766752.jpg','Description':'sometext'},
-//     {'Name':'PS2', 'pic':'https://i5.walmartimages.ca/images/Large/766/752/6000197766752.jpg','Description':'sometext'},]
-// const AmazonData = {'Name':'Amazon-PS4', 'pic':'https://i5.walmartimages.ca/images/Large/766/752/6000197766752.jpg','Description':'sometext'};
-// const GoogleData = {'Name':'eBay-PS4', 'pic':'https://i5.walmartimages.ca/images/Large/766/752/6000197766752.jpg','Description':'sometext'};
-
+//Retrieve user input
+function getName(){
+    return document.querySelector("#searchBox").value;
+}
 //Display selected product
-async function searchConsole(){
+async function searchConsole( consoleName ){
     event.preventDefault();
-    let consoleName = document.querySelector("#searchBox").value;//Retrieve console name from input 
     //Hide the slideshow
     carouselEl.style.display = 'none';
     //Fetch data
@@ -49,28 +46,24 @@ async function fetchGoogleData( consoleName ){
      }).then((result)=>result.json()).catch(err => {console.log(err, `Fetch from Google failed`);});
 }
 
-function displayProduct( Data1, Data2){
+function displayProduct( Data1, Data2 ){
     console.log(`Run [displayProduct]`)
-
     //Clear display window
     displayEl.innerHTML = '';
     //Display Amazon and Google Shopping price info
     displayEl.innerHTML = `
-    <div class="card">
-        <img src="${Data1[0].imageUrl}" class="card-img-top"/>
-        <div class="card-body">
-            <h5 class="card-title">${Data1[0].title} from Amazon</h5>
-            <p class="card-text"> ${Data1[0].Description} </p>
-            <p>Amazon Price: $ ${Data1[0].price}</p>
-        </div>
-    </div>
-    <div class="card">
-        <img src="${Data1[0].imageUrl}" class="card-img-top"/>
-        <div class="card-body">
-            <h5 class="card-title">${Data2[0].title} from Google Shopping</h5>
-            <p>Google Shopping Price: ${Data2[0].currency}${Data2[0].price}</p>
-        </div>
-    </div>`;
+        <div id="displayPrices" class="row">
+            <div class="card product">
+                <img src="${Data1[0].imageUrl}" class="card-img-top" alt="Nintendo Switch" />
+                <div class="card-body"><hr/>
+                    <h5 class="card-title">${Data1[0].title} from Amazon</h5>
+                    <h5>Amazon Price: $${Data1[0].price}<a href="www.amazon.ca" class="btn btn-primary" target="_blank">Shop at Amazon</a></h5>
+                    <hr/>
+                    <h5 class="card-title">${Data2[0].title} from Google Shopping</h5>
+                    <h5>Google Shopping Price: ${Data2[0].currency}${Data2[0].price}<a href="www.googleshopping.ca" class="btn btn-primary" target="_blank">Shop at Google</a></h5>
+                </div>
+            </div>
+        </div>`;
     console.log(`Amazon Price: $ ${Data1[0].price}`)
     console.log(`Google Price: ${Data2[0].currency}${Data2[0].price}`)
 }
