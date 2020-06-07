@@ -23,6 +23,9 @@
     justify-content: center;
     align-items: center;
 }
+.carousel-inner{
+    max-height: 360px;
+}
 .row{
     margin: 0;
     display: flex;
@@ -39,7 +42,9 @@
 }
 .product>img{
     height: 70%;
-    
+}
+#displayPrices{
+    margin: 4%;
 }
 footer{
     height: 10%;
