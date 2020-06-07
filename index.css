@@ -1,41 +1,67 @@
-.navbar {
+.navbar{
     background-color:#FFC90D;
-    height: 75px;
-    padding: 12px;
+    height: 10%;
+    width: 100%;
     text-decoration: none;
     color: white;
+    justify-content: center;
 }
-
-a {
-    color: ivory;
-   font-size: x-large;
-    font-family: 'Bangers', cursive;
+#Logo{
+    max-width: 80%;
 }
-.button {
-    background-color: lightskyblue;
-}
-
-#shoppingcartBtn{
-    font-size:24px; 
-    background-color: lightskyblue; 
-    border: 15px; 
-    padding: 10px; 
-    color: white; 
-    font-family: 'Bangers', cursive;
-}
-/* 
 .container{
-    margin: 0;
-} */
-
-img{
-    width: 100%;
+    padding: 0;
 }
-.carousel{
+.input-group{
+    margin: 0;
     margin-top: 4%;
 }
-.Ad {
-    margin: 2% 0 5%;
-    position: sticky;
-    /* height: 50vh; */
+#display{
+    width: 100%;
+    padding: 0;
+    margin-top: 4%;
+    justify-content: center;
+    align-items: center;
+}
+.row{
+    margin: 0;
+    display: flex;
+    justify-content: center;
+}
+.Ad{
+    display: none;
+}
+
+.product{
+    width: 100%;
+    height: 15%;
+    margin: 2%;
+}
+.product>img{
+    height: 70%;
+    
+}
+footer{
+    height: 10%;
+    background-color: grey;
+    color: ivory;
+}
+.py-4{
+    padding-bottom: 0!important;
+}
+@media all and (min-width:768px){
+    .row>div{
+        flex: 1;
+    }
+    .Ad{
+        margin-top: 4%;
+        display: flex;
+    }
+    .Ad>img{
+        max-width: 80%;
+    }
+ 
+    footer>div{
+        width: 100%;
+    }
 }
