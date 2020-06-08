@@ -7,6 +7,8 @@ AS A person who are currently quarantine at home or who just want to check price
 I WANT to look for gaming consoles on E-commerce platforms and compare the prices with one simple click
 SO THAT I can get an idea of the prices and compare them easily
 
+![Screenshot](screenshot.png)
+
 ## Future functionality 
 
 ```
