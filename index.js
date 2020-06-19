@@ -29,7 +29,7 @@ async function fetchAmazonData( consoleName ){
 
      return await fetch(AmazonAPI, {"method": "GET","headers": {
 		"x-rapidapi-host": "amazon-price1.p.rapidapi.com",
-		"x-rapidapi-key": "249c806d92mshd4f2e071540342ap173426jsn98f88f367b1a"
+		"x-rapidapi-key": ""
 	    }
      }).then((result)=>result.json()).catch(err => {console.log(err, `Fetch from Amazon failed`);});;
 }
@@ -41,7 +41,7 @@ async function fetchGoogleData( consoleName ){
 
    return await fetch(googleAPI, {"method": "GET","headers": {
 		"x-rapidapi-host": "google-shopping.p.rapidapi.com",
-		"x-rapidapi-key": "249c806d92mshd4f2e071540342ap173426jsn98f88f367b1a"
+		"x-rapidapi-key": ""
 	    }
      }).then((result)=>result.json()).catch(err => {console.log(err, `Fetch from Google failed`);});
 }
